@@ -113,33 +113,18 @@ const BreachTable = (data = []) => {
   )
 }
 
-const AccountSubmit = () => {
-  const handleSubmit = (event) => {
-    console.log(event.target.value)
-    event.preventDefault()
-  }
-  
-  return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <CustomTextField />
-      </form>
-    </>
-  )
-}
-
 const App = () => {
   // I'm specifically choosing useContext over component composition because
   // composition could get gross sending data between multiple nested levels AND a few components on the same level.
   
-  // At some point this could be redesigned to use either, but its an excuse for me to try useContext
+  // At some point this could be redesigned to use either, but its an excuse for me to try useContext - update, I love useContext.
+  // I think I hate material-ui though, at least until I don't have to hit documentation every 2 minutes
+
   const [breachData, setBreachData] = useState([])
   const breachRef = { breachData, setBreachData }
 
   const classes = useStyles
   useEffect(async () => {
-    console.log('trigger re-render?')
-    // await setBreachData(breachRef.breachData)
     setBreachData(breachRef.breachData)
   }, [breachRef.breachData])
 
@@ -159,7 +144,7 @@ const App = () => {
           style={{height:'100vh'}}>
 
           <Grid item>
-            <AccountSubmit />
+            <CustomTextField />
           </Grid>
           <Grid item>
             <div>
