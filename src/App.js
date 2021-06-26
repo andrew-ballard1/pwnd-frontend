@@ -62,6 +62,7 @@ const getBreach = async (account) => {
 const CustomTextField = () => {
   const [email, setEmail] = useState('')
   const [error, setError] = useState({hasError: false, errorText: ''})
+  const {hasError, errorText} = error
   
   const {setBreachData} = useContext(BreachContext)
 
@@ -80,7 +81,7 @@ const CustomTextField = () => {
       setEmail(event.target.value)
     }
   }
-  const {hasError, errorText} = error
+
   return (
     <TextField
       error={hasError}
