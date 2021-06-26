@@ -1,5 +1,39 @@
-import React, {useEffect, useState, useContext} from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import BreachContext from './BreachContext'
+import { TextField, InputAdornment, ThemeProvider, CssBaseline, Grid } from '@material-ui/core'
+import { makeStyles, createMuiTheme } from '@material-ui/core/styles'
+import validator from 'email-validator'
+import { AccountCircle } from '@material-ui/icons'
+
+import {red, green, grey, blue} from '@material-ui/core/colors';
+
+const theme = createMuiTheme({
+  palette: {
+    type: "dark",
+    primary: {
+      main: grey[50],
+    },
+    secondary: {
+      main: grey[500],
+    },
+    error: {
+      main: red[500],
+    },
+    success: {
+      main: green[500],
+    },
+    info: {
+      main: blue[500],
+    }
+  },
+})
+
+const useStyles = makeStyles(theme => ({
+  fullHeight: {
+    height: '100vh',
+  }
+}));
+
 
 const getBreach = async (account) => {
   console.log("getBreach()")
@@ -25,21 +59,46 @@ const getBreach = async (account) => {
 }
 
 
-const Input = () => {
-  const [value, setValue] = useState('')
+const CustomTextField = () => {
+  const [email, setEmail] = useState('')
+  const [error, setError] = useState({hasError: false, errorText: ''})
+  
   const {setBreachData} = useContext(BreachContext)
 
   const handleKeyUp = async (event) => {
     if (event.key === 'Enter') {
-      console.log('getting breach data')
-      const breachData = await getBreach(value)
-      setBreachData(breachData)
+      // validate email
+      if(validator.validate(email)){
+        console.log('getting breach data')
+        const breachData = await getBreach(email)
+        setBreachData(breachData)
+      } else {
+        setError({hasError: true, errorText: 'Invalid Email Address'})
+      }
     } else {
-      setValue(event.target.value)
+      setError({hasError: false, errorText: ''})
+      setEmail(event.target.value)
     }
   }
-
-  return <input type="text" onKeyUp={handleKeyUp} />
+  const {hasError, errorText} = error
+  return (
+    <TextField
+      error={hasError}
+      label='Check an Email'
+      defaultValue=''
+      helperText={errorText}
+      onKeyUp={handleKeyUp}
+      autoComplete='off'
+      variant="outlined"
+      InputProps={{
+        startAdornment: (
+          <InputAdornment position="start">
+            <AccountCircle color={hasError ? 'secondary' : 'primary'}/>
+          </InputAdornment>
+        ),
+      }}
+    />
+  )
 }
 
 const BreachTable = (data = []) => {
@@ -63,10 +122,7 @@ const AccountSubmit = () => {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <label>
-          Enter an email
-        </label>
-        <Input />
+        <CustomTextField />
       </form>
     </>
   )
@@ -80,7 +136,7 @@ const App = () => {
   const [breachData, setBreachData] = useState([])
   const breachRef = { breachData, setBreachData }
 
-  
+  const classes = useStyles
   useEffect(async () => {
     console.log('trigger re-render?')
     // await setBreachData(breachRef.breachData)
@@ -93,15 +149,32 @@ const App = () => {
 
   return (
     <BreachContext.Provider value={breachRef}>
-      <AccountSubmit />
-      <div>
-        {breachData.length > 0 &&
-          (<div>
-            Breach Data
-            {BreachTable(breachData)}
-          </div>)
-        }
-      </div>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Grid
+          container
+          direction="column"
+          justify="center"
+          alignItems="center"
+          style={{height:'100vh'}}>
+
+          <Grid item>
+            <AccountSubmit />
+          </Grid>
+          <Grid item>
+            <div>
+              {breachData.length > 0 &&
+                (<div>
+                  <h2>
+                    Breach Data
+                  </h2>
+                  {BreachTable(breachData)}
+                </div>)
+              }
+            </div>
+          </Grid>
+        </Grid>
+      </ThemeProvider>
     </BreachContext.Provider>
   )
 }
