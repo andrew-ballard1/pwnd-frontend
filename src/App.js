@@ -166,16 +166,103 @@ const CustomTextField = () => {
   )
 }
 
-const BreachTable = (data = []) => {
-  console.log("breachtable sees the following data")
-  console.log(data)
+const SearchTextField = () => {
+  const [search, setSearch] = useState('')
+  
+  const {filter, setFilter} = useContext(FilterContext)
+  const handleKeyUp = async (event) => {
+    setFilter({...filter, searchBy: event.target.value})
+  }
+
   return (
-    <div>
-      {data.map((item, index) => {
-        return (<div>{index}. {JSON.stringify(item)}</div>)
-      })}
-    </div>
+    <TextField
+      label='Quick Search'
+      defaultValue=''
+      onKeyUp={handleKeyUp}
+      autoComplete='off'
+      variant="outlined"
+      InputProps={{
+        startAdornment: (
+          <InputAdornment position="start">
+            <FilterList color={'primary'}/>
+          </InputAdornment>
+        ),
+      }}
+    />
   )
+}
+
+const SeverityFilter = () => {
+  const [value, setValue] = React.useState(0)
+  const {filter, setFilter} = useContext(FilterContext)
+  
+  const handleChange = async (event) => {
+    setFilter({...filter, severity: Number(event.target.value)})
+    setValue(Number(event.target.value))
+  }
+
+  return (
+    <FormControl component="fieldset">
+      <FormLabel component="legend">Severity</FormLabel>
+      <RadioGroup aria-label="severity" name="severity1" value={value} onChange={handleChange}>
+        <FormControlLabel value={1} control={<Radio />} label="Low" />
+        <FormControlLabel value={2} control={<Radio />} label="Medium" />
+        <FormControlLabel value={3} control={<Radio />} label="High" />
+        <FormControlLabel value={4} control={<Radio />} label="Critical" />
+        <FormControlLabel value={0} control={<Radio />} label="Show All" />
+      </RadioGroup>
+    </FormControl>
+  )
+}
+
+const SortBy = () => {
+  const [value, setValue] = React.useState('name_asc')
+  const {filter, setFilter} = useContext(FilterContext)
+  
+  const handleChange = async (event) => {
+    setFilter({...filter, severity: Number(event.target.value)})
+    setValue(Number(event.target.value))
+  }
+
+  return (
+    <FormControl component="fieldset">
+      <FormLabel component="legend">Severity</FormLabel>
+      <RadioGroup aria-label="severity" name="severity1" value={value} onChange={handleChange}>
+        <FormControlLabel value='name_asc' control={<Radio />} label="Name (asc)" />
+        <FormControlLabel value='name_desc' control={<Radio />} label="Name (desc)" />
+        <FormControlLabel value='severity_asc' control={<Radio />} label="Severity (asc)" />
+        <FormControlLabel value='severity_desc' control={<Radio />} label="Severity (desc)" />
+        <FormControlLabel value='impact_asc' control={<Radio />} label="Impact (asc)" />
+        <FormControlLabel value='impact_desc' control={<Radio />} label="Impact (desc)" />
+      </RadioGroup>
+    </FormControl>
+  )
+}
+
+const BreachTable = (data) => {
+  const severity = ['...', 'Low', 'Medium', 'High', 'Very High']
+
+  let table = data.map((item, index) => {
+    return (
+      <div key={`card_${index}`} className={'breachCard'}>
+        <div className={'cardHeader'}>
+          <div style={{backgroundImage: `url(${item.LogoPath})`}} className={'cardLogo'}></div>
+          <h3>{item.Name}</h3>
+          <Tooltip title={item.IsVerified ? 'Verified' : 'Unverified'} arrow left>
+            {item.IsVerified ? (<CheckCircleOutline />) : (<HelpOutline />)}
+          </Tooltip>
+        </div>
+        <div>
+          <div>{item.Title}</div>
+          <div>{parse(item.Description)}</div>
+        </div>
+        <div className={'cardFooter'}>
+          <div>Severity: {item.DataClasses.length < 5 ? severity[item.DataClasses.length] : 'Critical'}</div>
+        </div>
+      </div>
+    )
+  })
+  return table
 }
 
 const App = () => {
@@ -186,15 +273,41 @@ const App = () => {
   // I think I hate material-ui though, at least until I don't have to hit documentation every 2 minutes
 
   const [breachData, setBreachData] = useState([])
-  const breachRef = { breachData, setBreachData }
+  const [filter, setFilter] = useState({
+    searchBy: '',
+    severity: 0,
+    sortBy: 'name_asc'
+  })
 
-  const classes = useStyles
+  const data = breachData.filter((item) => {
+    // handle checkbox, text search here
+    console.log(filter)
+    let returnVal = true
+    if(filter.searchBy !== ""){
+      returnVal = false
+      if(item.Name.toLowerCase().indexOf(filter.searchBy.toLowerCase().trim()) !== -1){
+        returnVal = true
+      }
+    } else {
+      returnVal = true
+    }
+
+    // how many types of data were breached
+    if(returnVal){
+      returnVal = item.DataClasses.length >= filter.severity
+    }
+
+    return returnVal
+  })
+  
+  const breachRef = { breachData, setBreachData }
+  const filterRef = { filter, setFilter }
+
   useEffect(async () => {
     setBreachData(breachRef.breachData)
-  }, [breachRef.breachData])
+  }, [breachRef.breachData, filter])
 
-  console.log('app render ------------------------ start')
-  console.log(breachData)
+  console.log(data)
   console.log('app render ------------------------ end')
 
   return (
