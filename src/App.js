@@ -191,8 +191,12 @@ const App = () => {
     if(filter.sortBy == 'severity_desc'){
       return b.DataClasses.length - a.DataClasses.length
     }
-    if(filter.sortBy == 'impact_asc'){}
-    if(filter.sortBy == 'impact_adec'){}
+    if(filter.sortBy == 'impact_asc'){
+      return a.PwnCount - b.PwnCount
+    }
+    if(filter.sortBy == 'impact_adec'){
+      return b.PwnCount - a.PwnCount
+    }
 	});
 
 	return (
