@@ -194,7 +194,7 @@ const App = () => {
               <div>
                 {data.length > 0 &&
                   (<div style={{display: 'flex', flexDirection: 'column', flexWrap: 'no-wrap'}}>
-                    <h2>
+                    <h2 style={{textAlign: 'center'}}>
                       Breach Data
                     </h2>
                     <div style={{display: 'flex', flexDirection: 'column', width: '100vw', flexWrap: 'no-wrap'}}>
