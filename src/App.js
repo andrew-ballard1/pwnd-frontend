@@ -24,6 +24,54 @@ import BreachContext from './BreachContext'
 import FilterContext from './FilterContext'
 
 const theme = createMuiTheme({
+  overrides: {
+    MuiCssBaseline: {
+      "@global": {
+        "a": {
+          color: '#bbddff',
+        },
+        ".cardHeader": {
+          borderBottom: '1px rgba(255, 255, 255, 0.4) solid',
+          display: 'flex', 
+          flexDirection: 'row', 
+          alignItems: 'center', 
+          justifyContent:'space-between',
+          padding: '15px',
+          marginLeft: '-15px',
+          marginRight: '-15px',
+          marginBottom: '15px'
+        },
+        ".breachCard": {
+          paddingLeft: '15px',
+          paddingRight: '15px',
+          display: 'flex', 
+          flexDirection: 'column', 
+          justifyContent: 'space-between',
+          borderRadius: '4px', 
+          boxShadow: '0px 2px 3px 0px rgba(255,255,255,0.1)', 
+          backgroundColor: '#444',
+          width: '90%',
+          minHeight: '300px',
+          margin: '15px',
+          alignSelf: 'center'
+        },
+        ".cardLogo":{
+          width: '50px', 
+          height: '50px', 
+          border: '1px white solid', 
+          borderRadius: '4px', 
+          backgroundSize: '70%', 
+          backgroundRepeat: 'no-repeat', 
+          backgroundPosition: 'center'
+        },
+        ".cardFooter":{
+          display: 'flex',
+          flexDirection: 'row',
+          alignSelf: 'flex-end',
+        }
+      },
+    },
+  },
   palette: {
     type: "dark",
     primary: {
@@ -40,7 +88,7 @@ const theme = createMuiTheme({
     },
     info: {
       main: blue[500],
-    }
+    },
   },
 })
 
