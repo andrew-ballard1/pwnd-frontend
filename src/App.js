@@ -178,6 +178,21 @@ const App = () => {
 		}
 
 		return returnVal;
+  }).sort((a, b) => {
+    if(filter.sortBy == 'name_asc'){
+      return a.Name.localeCompare(b.Name, 'en', { numeric: true })
+    }
+    if(filter.sortBy == 'name_desc'){
+      return b.Name.localeCompare(a.Name, 'en', { numeric: true })
+    }
+    if(filter.sortBy == 'severity_asc'){
+      return a.DataClasses.length - b.DataClasses.length
+    }
+    if(filter.sortBy == 'severity_desc'){
+      return b.DataClasses.length - a.DataClasses.length
+    }
+    if(filter.sortBy == 'impact_asc'){}
+    if(filter.sortBy == 'impact_adec'){}
 	});
 
 	return (
