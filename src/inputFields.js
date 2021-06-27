@@ -11,6 +11,7 @@ import {
 	Select,
 	MenuItem,
 } from "@material-ui/core";
+const API_URL = process.env.REACT_APP_API_URL
 import { makeStyles } from "@material-ui/core/styles";
 import { AccountCircle, FilterList } from "@material-ui/icons";
 
@@ -40,7 +41,7 @@ const getBreach = async (account) => {
 		// }
 	};
 
-	const url = `https://${process.env.API_URL}/breaches?account=${account}`;
+	const url = `https://${API_URL}/breaches?account=${account}`;
 	let res = [];
 	await fetch(url, options)
 		.then((response) => response.json())
