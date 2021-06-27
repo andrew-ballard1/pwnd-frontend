@@ -102,7 +102,7 @@ const getBreach = async (account) => {
     // }
   }
   
-  const url = `http://127.0.0.1:3030/breaches?account=${account}`
+  const url = `${process.env.API_URL}/breaches?account=${account}`
   let res = []
   await fetch(url, options).then((response) => response.json()).then((data) => {
     console.log('data:')
@@ -212,14 +212,14 @@ const SortBy = () => {
   const {filter, setFilter} = useContext(FilterContext)
   
   const handleChange = async (event) => {
-    setFilter({...filter, severity: Number(event.target.value)})
-    setValue(Number(event.target.value))
+    setFilter({...filter, sortBy: event.target.value})
+    setValue(event.target.value)
   }
 
   return (
     <FormControl component="fieldset">
       <FormLabel component="legend">Severity</FormLabel>
-      <RadioGroup aria-label="severity" name="severity1" value={value} onChange={handleChange}>
+      <RadioGroup aria-label="severity" name="sortBy" value={value} onChange={handleChange}>
         <FormControlLabel value='name_asc' control={<Radio />} label="Name (asc)" />
         <FormControlLabel value='name_desc' control={<Radio />} label="Name (desc)" />
         <FormControlLabel value='severity_asc' control={<Radio />} label="Severity (asc)" />
@@ -318,10 +318,12 @@ const App = () => {
 
             <Grid 
               item
+              wrap="nowrap"
               direction="row">
               <CustomTextField />
               <SearchTextField />
               <SeverityFilter />
+              <SortBy />
             </Grid>
             <Grid item>
               <div>
