@@ -55,7 +55,8 @@ const theme = createMuiTheme({
         ".cardFooter":{
           display: 'flex',
           flexDirection: 'row',
-          alignSelf: 'flex-end',
+          alignSelf: 'flex-start',
+          alignItems: 'space-between',
         }
       },
     },
@@ -99,7 +100,9 @@ const BreachTable = (data) => {
           <div>{parse(item.Description)}</div>
         </div>
         <div className={'cardFooter'}>
-          <div>Severity: {item.DataClasses.length < 5 ? severity[item.DataClasses.length] : 'Critical'}</div>
+          <div style={{marginRight:'10px'}}>Impact: {item.PwnCount.toLocaleString()}</div>
+          <div style={{marginRight:'10px'}}>Severity: {item.DataClasses.length < 5 ? severity[item.DataClasses.length] : 'Critical'}</div>
+          <div style={{marginRight:'10px'}}>Breached On: {item.BreachDate.toLocaleString()}</div>
         </div>
       </div>
     )
