@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 		minWidth: 120,
 	},
 	selectEmpty: {
-		marginTop: theme.spacing(2),
+		marginBottom: theme.spacing(1),
 	},
 }));
 
@@ -139,6 +139,32 @@ const SeverityFilter = () => {
 		setValue(Number(event.target.value));
 	};
 
+
+
+    return (
+		<FormControl>
+			<InputLabel shrink id="demo-simple-select-placeholder-label-label">
+				Severity
+			</InputLabel>
+			<Select
+				labelId="severity_label"
+				id="severity_label"
+				value={value}
+				onChange={handleChange}
+				displayEmpty
+			>
+				<MenuItem value={1}>Low</MenuItem>
+				<MenuItem value={2}>Medium</MenuItem>
+				<MenuItem value={3}>High</MenuItem>
+				<MenuItem value={4}>Very High</MenuItem>
+				<MenuItem value={5}>Critical</MenuItem>
+				<MenuItem value={0}>Show All</MenuItem>
+			</Select>
+		</FormControl>
+	);
+
+
+
 	return (
 		<FormControl component="fieldset">
 			<FormLabel component="legend">Severity</FormLabel>
@@ -182,17 +208,16 @@ const SortBy = () => {
 	};
 
 	return (
-		<FormControl className={classes.formControl}>
+		<FormControl>
 			<InputLabel shrink id="demo-simple-select-placeholder-label-label">
 				Sort By
 			</InputLabel>
 			<Select
 				labelId="sortby_label"
 				id="sortby_label"
-				value={"name_asc"}
+				value={value}
 				onChange={handleChange}
 				displayEmpty
-				className={classes.selectEmpty}
 			>
 				<MenuItem value="name_asc">Name (asc)</MenuItem>
 				<MenuItem value="name_desc">Name (desc)</MenuItem>
