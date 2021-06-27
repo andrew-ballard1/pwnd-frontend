@@ -43,7 +43,7 @@ const getBreach = async (account) => {
 		// }
 	};
 
-	const url = `${API_URL}/breaches?account=${account}`;
+	const url = `${API_URL}/breaches?account=${encodeURIComponent(account)}`;
 	let res = [];
 	await fetch(url, options)
 		.then((response) => response.json())
