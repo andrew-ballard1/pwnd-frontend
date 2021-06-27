@@ -258,12 +258,12 @@ const BreachTable = (data) => {
 }
 
 const App = () => {
+  console.log('app render ------------------------ start')
   // I'm specifically choosing useContext over component composition because
   // composition could get gross sending data between multiple nested levels AND a few components on the same level.
   
   // At some point this could be redesigned to use either, but its an excuse for me to try useContext - update, I love useContext.
   // I think I hate material-ui though, at least until I don't have to hit documentation every 2 minutes
-
   const [breachData, setBreachData] = useState([])
   const [filter, setFilter] = useState({
     searchBy: '',
@@ -296,6 +296,7 @@ const App = () => {
   const filterRef = { filter, setFilter }
 
   useEffect(async () => {
+    console.log('changing data')
     setBreachData(breachRef.breachData)
   }, [breachRef.breachData, filter])
 
