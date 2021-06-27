@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useContext } from 'react'
 import {
   TextField, 
-  InputAdornment, 
+  InputAdornment,
+  InputLabel,
   ThemeProvider, 
   CssBaseline, 
   Grid, 
@@ -11,6 +12,8 @@ import {
   RadioGroup,
   FormControlLabel,
   Radio,
+  Select,
+  MenuItem
 } from '@material-ui/core'
 
 import { makeStyles, createMuiTheme } from '@material-ui/core/styles'
@@ -92,6 +95,16 @@ const theme = createMuiTheme({
   },
 })
 
+const useStyles = makeStyles((theme) => ({
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  },
+}));
+
 const getBreach = async (account) => {
   console.log("getBreach()")
   const token = '12345' // if auth is to be added between front / back ends
@@ -102,7 +115,7 @@ const getBreach = async (account) => {
     // }
   }
   
-  const url = `http://127.0.0.1:3030/breaches?account=${account}`
+  const url = `${process.env.API_URL}/breaches?account=${account}`
   let res = []
   await fetch(url, options).then((response) => response.json()).then((data) => {
     console.log('data:')
@@ -211,15 +224,40 @@ const SortBy = () => {
   const [value, setValue] = React.useState('name_asc')
   const {filter, setFilter} = useContext(FilterContext)
   
+  const classes = useStyles()
+
   const handleChange = async (event) => {
-    setFilter({...filter, severity: Number(event.target.value)})
-    setValue(Number(event.target.value))
+    setFilter({...filter, sortBy: event.target.value})
+    setValue(event.target.value)
   }
+
+  return (
+    <FormControl className={classes.formControl}>
+        <InputLabel shrink id="demo-simple-select-placeholder-label-label">
+          Sort By
+        </InputLabel>
+        <Select
+          labelId="sortby_label"
+          id="sortby_label"
+          value={'name_asc'}
+          onChange={handleChange}
+          displayEmpty
+          className={classes.selectEmpty}
+        >
+          <MenuItem value='name_asc'>Name (asc)</MenuItem>
+          <MenuItem value='name_desc'>Name (desc)</MenuItem>
+          <MenuItem value='severity_asc'>Severity (asc)</MenuItem>
+          <MenuItem value='severity_desc'>Severity (desc)</MenuItem>
+          <MenuItem value='impact_asc'>Impact (asc)</MenuItem>
+          <MenuItem value='impact_desc'>Impact (desc)</MenuItem>
+        </Select>
+      </FormControl>
+  )
 
   return (
     <FormControl component="fieldset">
       <FormLabel component="legend">Severity</FormLabel>
-      <RadioGroup aria-label="severity" name="severity1" value={value} onChange={handleChange}>
+      <RadioGroup aria-label="severity" name="sortBy" value={value} onChange={handleChange}>
         <FormControlLabel value='name_asc' control={<Radio />} label="Name (asc)" />
         <FormControlLabel value='name_desc' control={<Radio />} label="Name (desc)" />
         <FormControlLabel value='severity_asc' control={<Radio />} label="Severity (asc)" />
@@ -318,10 +356,12 @@ const App = () => {
 
             <Grid 
               item
+              wrap="nowrap"
               direction="row">
               <CustomTextField />
               <SearchTextField />
               <SeverityFilter />
+              <SortBy />
             </Grid>
             <Grid item>
               <div>
