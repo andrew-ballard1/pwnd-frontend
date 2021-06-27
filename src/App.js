@@ -1,11 +1,27 @@
 import React, { useEffect, useState, useContext } from 'react'
-import BreachContext from './BreachContext'
-import { TextField, InputAdornment, ThemeProvider, CssBaseline, Grid } from '@material-ui/core'
-import { makeStyles, createMuiTheme } from '@material-ui/core/styles'
-import validator from 'email-validator'
-import { AccountCircle } from '@material-ui/icons'
+import {
+  TextField, 
+  InputAdornment, 
+  ThemeProvider, 
+  CssBaseline, 
+  Grid, 
+  Tooltip,
+  FormControl,
+  FormLabel,
+  RadioGroup,
+  FormControlLabel,
+  Radio,
+} from '@material-ui/core'
 
-import {red, green, grey, blue} from '@material-ui/core/colors';
+import { makeStyles, createMuiTheme } from '@material-ui/core/styles'
+import { AccountCircle, HelpOutline, CheckCircleOutline, FilterList } from '@material-ui/icons'
+import { red, green, grey, blue } from '@material-ui/core/colors'
+
+import validator from 'email-validator'
+import parse from 'html-react-parser'
+
+import BreachContext from './BreachContext'
+import FilterContext from './FilterContext'
 
 const theme = createMuiTheme({
   palette: {
