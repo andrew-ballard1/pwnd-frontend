@@ -312,32 +312,41 @@ const App = () => {
 
   return (
     <BreachContext.Provider value={breachRef}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Grid
-          container
-          direction="column"
-          justify="center"
-          alignItems="center"
-          style={{height:'100vh'}}>
+      <FilterContext.Provider value={filterRef}>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <Grid
+            container
+            direction="column"
+            justify="center"
+            wrap="nowrap"
+            alignItems="center"
+            style={{minHeight:'100vh', paddingTop: '45vh'}}>
 
-          <Grid item>
-            <CustomTextField />
+            <Grid 
+              item
+              direction="row">
+              <CustomTextField />
+              <SearchTextField />
+              <SeverityFilter />
+            </Grid>
+            <Grid item>
+              <div>
+                {data.length > 0 &&
+                  (<div style={{display: 'flex', flexDirection: 'column', flexWrap: 'no-wrap'}}>
+                    <h2>
+                      Breach Data
+                    </h2>
+                    <div style={{display: 'flex', flexDirection: 'column', width: '100vw', flexWrap: 'no-wrap'}}>
+                      {BreachTable(data)}
+                    </div>
+                  </div>)
+                }
+              </div>
+            </Grid>
           </Grid>
-          <Grid item>
-            <div>
-              {breachData.length > 0 &&
-                (<div>
-                  <h2>
-                    Breach Data
-                  </h2>
-                  {BreachTable(breachData)}
-                </div>)
-              }
-            </div>
-          </Grid>
-        </Grid>
-      </ThemeProvider>
+        </ThemeProvider>
+      </FilterContext.Provider>
     </BreachContext.Provider>
   )
 }
