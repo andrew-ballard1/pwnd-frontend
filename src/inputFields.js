@@ -11,7 +11,7 @@ import {
 	Select,
 	MenuItem,
 } from "@material-ui/core";
-const API_URL = process.env.REACT_APP_API_URL
+
 import { makeStyles } from "@material-ui/core/styles";
 import { AccountCircle, FilterList } from "@material-ui/icons";
 
@@ -20,6 +20,8 @@ import parse from "html-react-parser";
 
 import BreachContext from "./BreachContext";
 import FilterContext from "./FilterContext";
+
+const API_URL = process.env.REACT_APP_API_URL
 
 const useStyles = makeStyles((theme) => ({
 	formControl: {
