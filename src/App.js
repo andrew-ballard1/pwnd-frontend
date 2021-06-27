@@ -92,13 +92,6 @@ const theme = createMuiTheme({
   },
 })
 
-const useStyles = makeStyles(theme => ({
-  fullHeight: {
-    height: '100vh',
-  }
-}));
-
-
 const getBreach = async (account) => {
   console.log("getBreach()")
   const token = '12345' // if auth is to be added between front / back ends
@@ -121,7 +114,6 @@ const getBreach = async (account) => {
 
   return res
 }
-
 
 const CustomTextField = () => {
   const [email, setEmail] = useState('')
