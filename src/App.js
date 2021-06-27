@@ -13,7 +13,8 @@ import {
 
 import parse from "html-react-parser";
 
-import {BreachContext, FilterContext} from "./ContextController";
+import BreachContext from "./BreachContext";
+import FilterContext from "./FilterContext";
 
 const theme = createMuiTheme({
 	overrides: {
