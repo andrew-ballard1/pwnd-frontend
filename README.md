@@ -19,7 +19,7 @@ A live demo is available at <a href="https://pwnd-frontend.herokuapp.com">pwnd-f
 
 This project was used as an introduction to Material-UI and a more in depth dive into react hooks (specifically useContext).
 
-Rather than going ham on parts that are mostly configuration, I decided mentioning here what all I thought about doing might be alright instead.
+Rather than going ham on parts that are mostly configuration, I thought mentioning here what all I wanted to bulid might be alright instead.
 
 - Firebase lets you create anonymous user records (and handles token generation/validation for both client and server), so when a user hits the page and searches emails, I'd use their tokens to identify the search as theirs, then save that data to a db somewhere. If I ever needed reporting data or usage statistics, I could draw from those records.
 
