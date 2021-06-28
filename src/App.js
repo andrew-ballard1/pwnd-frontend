@@ -121,6 +121,10 @@ const BreachTable = (data) => {
   // severity is the measure of how many types of data were found in a breach.
   // Email by itself would be low, Email plus username would be medium, etc
 	const severity = ["...", "Low", "Medium", "High", "Very High"];
+  
+  if(data.length == 0){
+    return [(<h1>No Breaches Detected!</h1>)]
+  }
 
 	let table = data.map((item, index) => {
 		return (
@@ -153,7 +157,7 @@ const BreachTable = (data) => {
 			</div>
 		);
 	});
-	return table;
+	return table
 };
 
 const App = () => {
@@ -161,7 +165,7 @@ const App = () => {
 	// composition could get gross sending data between multiple nested levels AND a few components on the same level.
 	// At some point this could be redesigned to use either, but its an excuse for me to try useContext - update, I love useContext.
 
-  const [breachData, setBreachData] = useState([]);
+  const [breachData, setBreachData] = useState({isClean: false, data: []});
 	const [filter, setFilter] = useState({
 		searchBy: "",
 		severity: 0,
@@ -172,11 +176,13 @@ const App = () => {
 	const filterRef = { filter, setFilter };
 
 	useEffect(async () => {
+    console.log(breachRef.breachData)
 		setBreachData(breachRef.breachData);
 	}, [breachRef.breachData, filter]);
 
 	// Apply filters / sorting here
 	const data = breachData
+  const filteredData = breachData.data
 		.filter((item) => {
 			let returnVal = true;
 			if (filter.searchBy !== "") {
@@ -256,10 +262,10 @@ const App = () => {
 								}}
 							>
 								<div>
-									<h1 style={{ fontSize: "50px" }}>
+									<h1 style={{ fontSize: "50px", textShadow: "2px 2px 8px black" }}>
 										Check your email for security breaches
 									</h1>
-									<p style={{ fontSize: "16px" }}>
+									<p style={{ fontSize: "16px", textShadow: "2px 0px 8px black" }}>
 										Although, maybe consider NOT entering
 										your email on random websites.
 										<br />
@@ -273,7 +279,24 @@ const App = () => {
 							<SortBy />
 						</Grid>
 						<Grid item>
-							{data.length > 0 && (
+              {data.isClean && filteredData.length === 0 && (
+                <h1 style={{
+                    display: "flex",
+                    alignSelf: "center",
+                    textAlign: "center",
+                  }}>No breaches detected!</h1>
+                )
+              }
+              {!data.isClean && filteredData.length === 0 && (
+                <h1 style={{
+                    display: "flex",
+                    alignSelf: "center",
+                    textAlign: "center",
+                  }}>There's nothing here</h1>
+                )
+              }
+
+							{!data.isClean && filteredData.length > 0 && (
 								<div>
 									<h1
 										style={{
@@ -282,14 +305,7 @@ const App = () => {
 											textAlign: "center",
 										}}
 									>
-										{
-											breachTitles[
-												Math.floor(
-													Math.random() *
-														breachTitles.length
-												)
-											]
-										}
+										{breachTitles[Math.floor(Math.random() * breachTitles.length)]}
 									</h1>
 									<div
 										style={{
@@ -305,7 +321,7 @@ const App = () => {
 											className="my-masonry-grid"
 											columnClassName="my-masonry-grid_column"
 										>
-											{BreachTable(data)}
+											{BreachTable(filteredData)}
 										</Masonry>
 									</div>
 								</div>
