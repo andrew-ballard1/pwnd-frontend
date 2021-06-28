@@ -25,11 +25,10 @@ Rather than going ham on parts that are mostly configuration, I thought mentioni
 
 - I originally wanted to hook up firebase for client authentication, send bearer tokens between the front and back ends, and set up ddos rules to keep people from spamming, but MVP is best for now
 
-
 ## _I've_ got questions for _you_ now
 
 
-<div style="width:100%;height:0;padding-bottom:67%;position:relative;"><iframe src="https://giphy.com/embed/MQwnNsDJ1MJZ0E0w1u" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/mattel-uno-reverse-card-unogame-MQwnNsDJ1MJZ0E0w1u">via GIPHY</a></p>
+<img src="https://media.giphy.com/media/MQwnNsDJ1MJZ0E0w1u/giphy.gif" />
 
 I have one bug I've left in that I'm curious if you can find. If I were to send this to QA they'd find it within a few minutes, but I know their process. It has to do with email validation.
 
