@@ -2,6 +2,16 @@
 
 ## Prerequisets
 
+## Prerequisets
+
+Node `^15.14.0` is required
+
+You can use a node version manager to switch between versions, <a href="https://www.npmjs.com/package/n">I'm partial to "n"</a>
+
+You can also use NVM
+
+Then run `n install 15.14.0` or `nvm install 15.14.0`
+
 
 Go check out <a href="https://github.com/andrew-ballard1/pwnd-api" target="_blank">andrew-ballard1/pwnd-api</a> and complete the setup instructions there.
 
@@ -11,8 +21,9 @@ Go check out <a href="https://github.com/andrew-ballard1/pwnd-api" target="_blan
 2. Run `echo REACT_APP_API_URL=http://127.0.0.1:3030" >> .env` (or swap out the url and port with whatever values you end up using)
 3. Run `npm start`
 
+(Sometimes you'll need to put environment variables into `.env.development` instead, and if all else fails, for the sake of testing just swap out the declaration)
 
-A live demo is available at <a href="https://pwnd-frontend.herokuapp.com">pwnd-frontend.herokuapp.com</a>
+If you don't like running strange code locally, a live demo is available at <a href="https://pwnd-frontend.herokuapp.com">pwnd-frontend.herokuapp.com</a>
 
 ## Some notes
 
