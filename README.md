@@ -30,5 +30,5 @@ Rather than going ham on parts that are mostly configuration, I thought mentioni
 
 <img src="https://media.giphy.com/media/MQwnNsDJ1MJZ0E0w1u/giphy.gif" />
 
-I try to make it a habit to take in feedback, so feel free to leave comments on stuff, fiddle around, suggest edits etc. I'm impossible to insult, unless you think Han shot second.
+I try to make it a habit to take in feedback, so feel free to leave comments on stuff, fiddle around, suggest edits etc. I don't get hard feelings, unless you think Han shot second.
 
