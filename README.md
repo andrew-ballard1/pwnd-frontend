@@ -25,11 +25,10 @@ Rather than going ham on parts that are mostly configuration, I thought mentioni
 
 - I originally wanted to hook up firebase for client authentication, send bearer tokens between the front and back ends, and set up ddos rules to keep people from spamming, but MVP is best for now
 
-## _I've_ got questions for _you_ now
+## Now _I've_ got questions for _you_
 
 
 <img src="https://media.giphy.com/media/MQwnNsDJ1MJZ0E0w1u/giphy.gif" />
 
-I have one bug I've left in that I'm curious if you can find. If I were to send this to QA they'd find it within a few minutes, but I know their process. It has to do with email validation.
+I try to make it a habit to take in feedback, so feel free to leave comments on stuff, fiddle around, suggest edits etc. I don't get hard feelings, unless you think Han shot second.
 
-Honestly there are a few bugs, but the effort to reward of fixing them is low (I'm talking like minor css bugs).
